@@ -1,0 +1,38 @@
+@prefix :      <http://base/#> .
+@prefix tdb:   <http://jena.hpl.hp.com/2008/tdb#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ja:    <http://jena.hpl.hp.com/2005/11/Assembler#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix fuseki: <http://jena.apache.org/fuseki#> .
+
+
+:service1        a                fuseki:Service ;
+fuseki:dataset                    <#dataset> ;
+fuseki:name                       "medicals" ;
+fuseki:serviceQuery               "query" , "sparql" ;
+fuseki:serviceReadGraphStore      "get" ;
+fuseki:serviceReadWriteGraphStore "data" ;
+fuseki:serviceUpdate              "update" ;
+fuseki:serviceUpload              "upload" .
+
+
+<#dataset> rdf:type ja:RDFDataset ;
+    ja:defaultGraph <#model_inf> ;
+    .
+
+<#model_inf> a ja:InfModel ;
+    ja:baseModel <#tdbGraph> ;
+
+    # 开启规则推理机，并指定规则文件路径
+    ja:reasoner [
+        ja:reasonerURL <http://jena.hpl.hp.com/2003/GenericRuleReasoner> ; 
+        ja:rulesFrom <file:///C:/Users/15742/code/final/knowledgeGraph/back-end/fuseki/run/datasets/rules.ttl> ; ]
+    .
+
+<#tdbGraph> rdf:type tdb:GraphTDB ;
+    tdb:dataset <#tdbDataset> ;
+    .
+
+<#tdbDataset> rdf:type tdb:DatasetTDB ;
+    tdb:location "./run/datasets/tdb" ;
+    .

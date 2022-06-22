@@ -1,0 +1,25 @@
+@prefix blcu: <http://www.blcu.edu.cn/ontology#> .
+
+[rule1:(?m1 blcu:药品 ?a1) (?m1 blcu:中药功效 ?a2) ->(?a1 blcu:功效 ?a2)]
+[rule2: (?m1 blcu:药品 ?a1) (?m1 blcu:药物成分 ?a2) ->(?a1 blcu:含有 ?a2)]
+[rule3: (?m1 blcu:药品 ?a1) (?m1 blcu:症状 ?a2) ->(?a1 blcu:治疗 ?a2)]
+[rule4: (?m1 blcu:药品 ?a1) (?m1 blcu:食物分组 ?a2) ->(?a1 blcu:饮食禁忌 ?a2)]
+[rule5: (?m1 blcu:药品 ?a1) (?m1 blcu:食物 ?a2) ->(?a1 blcu:不可混用 ?a2)]
+[rule5: (?m1 blcu:药品 ?a1) (?m1 blcu:国药准字 ?a2) ->(?a1 blcu:国药准字 ?a2)]
+[rule5: (?m1 blcu:药品 ?a1) (?m1 blcu:证候 ?a2) ->(?a1 blcu:证候 ?a2)]
+[rule5: (?m1 blcu:药品 ?a1) (?m1 blcu:疾病 ?a2) ->(?a1 blcu:治疗 ?a2)]
+[rule5: (?m1 blcu:药品 ?a1) (?m1 blcu:药物性味 ?a2) ->(?a1 blcu:味道 ?a2)]
+[rule5: (?m1 blcu:药品 ?a1) (?m1 blcu:药物剂型 ?a2) ->(?a1 blcu:外形 ?a2)]
+
+
+[rule6: (?p blcu:人群 blcu:儿童) (?p blcu:药品 ?m) -> (blcu:儿童 blcu:慎用 ?m)]
+[rule6: (?p blcu:人群 blcu:孕妇) (?p blcu:药品 ?m) -> (blcu:孕妇 blcu:慎用 ?m)]
+[rule6: (?p blcu:人群 blcu:小儿) (?p blcu:药品 ?m) -> (blcu:小儿 blcu:慎用 ?m)]
+[rule6: (?p blcu:人群 blcu:老人) (?p blcu:药品 ?m) -> (blcu:老人 blcu:慎用 ?m)]
+[rule6: (?p blcu:人群 blcu:过敏体质者) (?p blcu:药品 ?m) -> (blcu:过敏体质者 blcu:慎用 ?m)]
+[rule6: (?p blcu:人群 blcu:成人) (?p blcu:药品 ?m) -> (blcu:成人 blcu:慎用 ?m)]
+
+[rule7: (?p blcu:药物成分 blcu:人参) (?p blcu:药品 ?m) (?p blcu:人群 blcu:过敏体质者)-> (blcu:人参过敏者 blcu:因过敏禁止服用 ?m)]
+[rule8: (?p blcu:中药功效 blcu:止血) (?p blcu:中药功效 blcu:化瘀) (?p blcu:中药功效 blcu:消肿) (?p blcu:药品 ?m) -> (blcu:外伤药 blcu:包括 ?m)]
+[rule9: (?p blcu:中药功效 blcu:止血) (?p blcu:药品 ?m) (?p blcu:人群 blcu:孕妇)-> (blcu:需要止血药的孕妇 blcu:禁止服用 ?m)]
+[rule10: (?p blcu:食物分组 blcu:生冷) (?p blcu:药品 ?m)  -> (blcu:吃完生冷的人 blcu:禁止服用 ?m)]
