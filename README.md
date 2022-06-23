@@ -11,6 +11,8 @@
 
 ​	打开前后端目录 README.md 查看详细说明。
 
+​	也可以访问 [药品知识图谱问答系统设计](https://www.glowmem.com/archives/medical-kgqa-system) 查看具体设计与效果展示。
+
 
 
 ### 3、演示
@@ -20,4 +22,5 @@
 
 
 ### 4、版权
+
 ​	版权所有：&copy; BLCU 快放暑假 开发组
