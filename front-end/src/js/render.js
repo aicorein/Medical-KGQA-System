@@ -2,7 +2,7 @@ export function Render(data, vueObj) {
 
   function freshVar(self) {
     self.inputNum = '';
-    self.cardHeader = '<h2>回答：</h2>';
+    self.cardHeader = '<h2>回答：</h2><h4>注：若结果过多按 ctrl-f 搜索</h4>';
     self.numbers = [];
     self.numberRes = '';
     self.medicalName = '';
@@ -24,9 +24,7 @@ export function Render(data, vueObj) {
     freshVar(self);
     if (data.state == 1) {
       self.state = 1;
-      for (let i = 0; i < data.content.names.length; i++) {
-        self.answer += `<p>${data.content.names[i]}</p>`;
-      }
+      self.refillAnswer(data.content.names, 5);
       self.numbers = data.content.numbers;
       self.answerReady = true;
     }
@@ -40,10 +38,7 @@ export function Render(data, vueObj) {
 
     else if (data.state == 3) {
       self.state = 3;
-      for (let i = 0; i < data.content.allObj.length; i=i+2) {
-        if (i + 1 >= data.content.allObj.length) self.answer += `<p>${data.content.allObj[i]}</p>`;
-        else self.answer += `<p>${data.content.allObj[i]}、${data.content.allObj[i+1]}</p>`;
-      }
+      self.refillAnswer(data.content.allObj, 9);
       self.numbers = data.content.numberObj;
       self.medicalName = data.medical;
       self.answerReady = true;

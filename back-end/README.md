@@ -6,6 +6,7 @@
 
 - `app.py`	后端启动
 - `medicals_name.txt`	问句解析自定义词典
+- `id_name.json`	药品 id—name 映射表
 - `KG`	知识图谱相关数据、配置文件
   - `fuseki_config.ttl `	Apache Jena Fuseki 配置文件
   - `medicals.ttl`	知识图谱数据 ttl

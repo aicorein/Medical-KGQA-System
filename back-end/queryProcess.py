@@ -1,3 +1,10 @@
+import json
+
+
+with open(r'./id_name.json', encoding="UTF-8") as fp:
+    ID_NAME_DICT = json.load(fp)
+
+
 def trimURI(string: str): 
     return string.strip('http://www.blcu.edu.cn/ontology#')
 
@@ -17,7 +24,7 @@ def processData(query_keys, data, state):
                 name = trimURI(result['sub']['value'])
                 number = trimURI(result['number']['value'])
 
-                if name.isdigit(): continue
+                if name.isdigit(): name = ID_NAME_DICT[name]
                 if name not in name_list: name_list.append(name)
                 number_list.append(number)
             return {
@@ -91,6 +98,4 @@ def processData(query_keys, data, state):
                     "numberObj": number_obj_list
                 }
             }
-
-
 

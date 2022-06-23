@@ -19,12 +19,6 @@
       <div v-if="firstDisplay">
 
         <div class="card-box" v-if="state == 1">
-          <el-card class="box-card first-card" v-if="!InputErr && !ReqErr && answerReady" shadow="hover">
-            <template #header>
-              <div class="card-header" v-html="cardHeader"></div>
-            </template>
-            <div class="answer" v-html="answer"></div>
-          </el-card>
           <el-card class="box-card second-card" v-if="!InputErr && !ReqErr && answerReady" shadow="hover">
             <p>注：由于同名药品可能由不同厂家生产，结果可能存在差别。</p>
             <p>如需精准确认药品是否含有特性/物质，建议您输入国药准字查询：</p>
@@ -41,15 +35,16 @@
             </el-row>
             <p v-html="numberRes"></p>
           </el-card>
+          <el-card class="box-card first-card" v-if="!InputErr && !ReqErr && answerReady" shadow="hover">
+            <template #header>
+              <div class="card-header" v-html="cardHeader"></div>
+            </template>
+            <div class="answer" v-html="answer"></div>
+          </el-card>
+
         </div>
 
         <div class="card-box" v-if="state == 2">
-          <el-card class="box-card first-card" v-if="!InputErr && !ReqErr && answerReady" shadow="hover">
-            <template #header>
-              <div class="card-header" v-html="cardHeader"></div>
-            </template>
-            <div class="answer" v-html="answer"></div>
-          </el-card>
           <el-card class="box-card second-card" v-if="!InputErr && !ReqErr && answerReady" shadow="hover">
             <p>注：由于同名药品可能由不同厂家生产，结果可能存在差别。</p>
             <p>如需精准确认药品是否含有特性/物质，建议您输入国药准字查询：</p>
@@ -66,15 +61,16 @@
             </el-row>
             <p v-html="numberRes"></p>
           </el-card>
-        </div>
-
-        <div class="card-box" v-if="state == 3">
           <el-card class="box-card first-card" v-if="!InputErr && !ReqErr && answerReady" shadow="hover">
             <template #header>
               <div class="card-header" v-html="cardHeader"></div>
             </template>
             <div class="answer" v-html="answer"></div>
           </el-card>
+
+        </div>
+
+        <div class="card-box" v-if="state == 3">
           <el-card class="box-card second-card" v-if="!InputErr && !ReqErr && answerReady" shadow="hover">
             <p>注：由于同名药品可能由不同厂家生产，结果可能存在差别。</p>
             <p>如需精准获得某药品的信息，输入国药准字以继续：</p>
@@ -90,6 +86,12 @@
               </el-col>
             </el-row>
             <p v-html="numberRes"></p>
+          </el-card>
+          <el-card class="box-card first-card" v-if="!InputErr && !ReqErr && answerReady" shadow="hover">
+            <template #header>
+              <div class="card-header" v-html="cardHeader"></div>
+            </template>
+            <div class="answer" v-html="answer"></div>
           </el-card>
         </div>
 
@@ -113,7 +115,7 @@ export default {
     return {
       inputText: '',
       inputNum: '',
-      cardHeader: '<h2>回答：</h2>',
+      cardHeader: '<h2>回答：</h2><h4>注：若结果过多按 ctrl-f 搜索</h4>',
       answer: '',
       numbers: [],
       numberRes: '',
@@ -176,10 +178,7 @@ export default {
       this.answer = '';
       if (findFlag) {
         this.cardHeader = `<h2>${this.medicalName}</h2><h3>国药准字：${this.numbers[index].number}</h3>`
-        for (let i = 0; i < this.numbers[index].obj.length; i = i + 2) {
-          if (i + 1 >= this.numbers[index].obj.length) this.answer += `<p>${this.numbers[index].obj[i]}</p>`;
-          else this.answer += `<p>${this.numbers[index].obj[i]}、${this.numbers[index].obj[i + 1]}</p>`;
-        }
+        this.refillAnswer(this.numbers[index].obj, 9);
         ElMessage({
           message: '已更新对应药品的信息',
           grouping: true,
@@ -194,6 +193,15 @@ export default {
           grouping: true,
           type: 'error',
         })
+      }
+    },
+    refillAnswer(obj, num = 2) {
+      for (let i = 0; i < obj.length; i += num) {
+        this.answer += '<p>';
+        for (let j = i; j < i + num && j < obj.length; j++) {
+          this.answer += `${obj[j]}、`;
+        }
+        this.answer += '</p>';
       }
     }
   }
@@ -262,12 +270,12 @@ h1 {
 }
 
 .first-card {
-  width: 500px;
-  margin-bottom: 30px;
+  width: 990px;
 }
 
 .second-card {
   width: 600px;
+  margin-bottom: 30px;
 }
 
 .second-card .el-row {
